@@ -1,0 +1,51 @@
+<h4 class="text-center mt-5 mb-5">New player</h4>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-left">
+                <form #addPlayerForm="ngForm" (ngSubmit)="addPlayer(addPlayerForm)">
+                    <div class="form-group">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" id="firstName" aria-describedby="firstName" ngModel name="firstName"
+                        placeholder="Enter first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="lastName" aria-describedby="lastName"
+                            placeholder="Enter last name" ngModel name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" min="18" max="50" class="form-control" id="age" aria-describedby="age"
+                            placeholder="Enter age" ngModel name="age" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <input type="text" class="form-control" id="nationality" aria-describedby="nationality"
+                            placeholder="Enter nationality" ngModel name="nationality" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
+                        <input type="text" class="form-control" id="imageUrl" aria-describedby="imageUrl"
+                            placeholder="Paste image URL" ngModel name="imageUrl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startOfCareer">Start of career</label>
+                        <input type="date" class="form-control" id="startOfCareer" aria-describedby="startOfCareer"
+                            ngModel name="startOfCareer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teams">Choose team</label>
+                        <select class="form-control" id="teams" [(ngModel)]="selectedTeam" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let team of teams" [ngValue]="team">
+                                {{team.name}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-secondary" [disabled]="!addPlayerForm.valid">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

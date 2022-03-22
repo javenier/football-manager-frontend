@@ -1,0 +1,47 @@
+<h4 class="mt-5 mb-5">All players</h4>
+<div *ngIf="!players.length">
+    <h5 class="text-center">There aren't any players!</h5>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let player of players">
+        <div class="card h-100">
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+                <img src="{{player.imageUrl}}" class="w-100" />
+                <div class="card-body">
+                    <a routerLink="/players/{{player.id}}">
+                        <h5 class="card-title mb-3">{{player.firstName}} {{player.lastName}}, {{player.age}} y.o.</h5>
+                    </a>
+                    <a class="text-reset">
+                        <p>{{player.nationality}}</p>
+                    </a>
+                    <h6 class="mb-3">{{player.startOfCareer | date}}</h6>
+                    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deletePlayerModal"
+                        (click)="setPlayerForDeleteId(player.id)">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deletePlayerModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Delete player</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this player ?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button class="btn btn-danger" (click)="deletePlayer(playerForDeleteId)"
+                        data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

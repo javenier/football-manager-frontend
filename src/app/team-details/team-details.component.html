@@ -1,0 +1,117 @@
+<h1 class="my-4 mt-5">{{team?.name}}</h1>
+
+<div class="row">
+    <div class="col-md-5">
+        <img class="img-fluid" src="{{team?.imageUrl}}" alt="Team photo">
+    </div>
+
+    <div class="col-md-7 text-left">
+        <h2 class="my-1 mb-4 text-center">Team details</h2>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <h5>Coach name: </h5>
+            </li>
+            <li class="list-inline-item">
+                <h5 class="text-muted">{{team?.coachName}}</h5>
+            </li>
+        </ul>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <h5>Location: </h5>
+            </li>
+            <li class="list-inline-item">
+                <h5 class="text-muted">{{team?.country}}, {{team?.city}}</h5>
+            </li>
+        </ul>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <h5>Foundation date: </h5>
+            </li>
+            <li class="list-inline-item">
+                <h5 class="text-muted">{{team?.foundationDate | date}}</h5>
+            </li>
+        </ul>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <h5>Transfer balance: </h5>
+            </li>
+            <li class="list-inline-item">
+                <h5 class="text-muted">{{team?.transferBalance | currency}}</h5>
+            </li>
+        </ul>
+        <button type="button" class="btn btn-outline-dark mt-2 btn-lg btn-block" data-toggle="modal"
+            data-target="#updateTeamModal">Edit</button>
+    </div>
+</div>
+<h3 class="my-4">Players</h3>
+<div class="row ml-1">
+    <ul class="list-unstyled list">
+        <a routerLink="/players/{{player.id}}" *ngFor="let player of team?.players; let i = index">
+            <li class="mb-3 d-flex">{{i+1}}. {{player.firstName}}
+                {{player.lastName}}</li>
+        </a>
+    </ul>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateTeamModal" tabindex="-1" role="dialog" aria-labelledby="teamEditModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateTeamModalLabel">Edit team</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-left">
+                <form #editTeamForm="ngForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" ngModel="{{team?.name}}" name="name" class="form-control" id="name"
+                            placeholder="Enter name">
+                    </div>
+                    <input type="hidden" name="id" ngModel="{{team?.id}}" class="form-control" id="id" placeholder="id">
+
+                    <input type="hidden" name="transferBalance" ngModel="{{team?.transferBalance}}" class="form-control"
+                        id="transferBalance" placeholder="transferBalance">
+                    <div class="form-group">
+                        <label for="commissionFee">Commission fee</label>
+                        <input type="number" min="1" max="10" name="commissionFee" ngModel="{{team?.commissionFee}}"
+                            class="form-control" id="commissionFee" placeholder="Enter commission fee">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" name="country" ngModel="{{team?.country}}" class="form-control" id="country"
+                            placeholder="Enter country">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" name="city" class="form-control" ngModel="{{team?.city}}" id="city"
+                            name="city" placeholder="Enter city">
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
+                        <input type="text" name="imageUrl" class="form-control" ngModel="{{team?.imageUrl}}"
+                            id="imageUrl" placeholder="Enter image URL">
+                    </div>
+                    <div class="form-group">
+                        <label for="coachName">Coach name</label>
+                        <input type="text" name="coachName" class="form-control" ngModel="{{team?.coachName}}"
+                            id="coachName" placeholder="Enter coach name">
+                    </div>
+                    <div class="form-group">
+                        <label for="foundationDate">Foundation date</label>
+                        <input type="date" class="form-control" id="foundationDate" aria-describedby="foundationDate"
+                            ngModel="{{team?.foundationDate}}" name="foundationDate">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                        <button data-dismiss="modal" (click)="updateTeam(editTeamForm.value)"
+                            class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
